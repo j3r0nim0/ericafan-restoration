@@ -7,7 +7,7 @@
 		<radialbackground>true</radialbackground>
 		<menualignment>center</menualignment>
 		<showfooter>false</showfooter>
-		<showfooterbackground>false</showfooterbackground>
+		<showfooterbackground>true</showfooterbackground>
 		<showgramophone>true</showgramophone>
 		<footertext><![CDATA[]]></footertext>
 		<allowfullscreen>false</allowfullscreen>
