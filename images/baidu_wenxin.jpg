@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="dns-prefetch" href="//ms.bdstatic.com">
+    <link rel="dns-prefetch" href="//chat.baidu.com">
+    <link rel="manifest" href="/aisearch.webmanifest">
+
+
+    <meta name="description" content="百度文心助手，一站式解决复杂问题，激发PC端超级生产力！独有「灵感探索」功能深入剖析问题核心，智能文字创作、图片创作、AI阅读、智能体海量应用启迪无限创意，开启高效智能学习办公新篇章！">
+    <meta name="keywords" content="百度文心助手,文心大模型,AI搜索,智能搜索,智能创作,AI助手,AI图片生成,AI图片理解,AI修图,AI阅读,灵感探索">
+    <meta name="author" content="百度">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="百度文心助手 - 办公学习一站解决">
+    <meta property="og:description" content="百度文心助手，一站式解决复杂问题，激发PC端超级生产力！独有「灵感探索」功能深入剖析问题核心，智能文字创作、图片创作、AI阅读、智能体海量应用启迪无限创意，开启高效智能学习办公新篇章！">
+    <meta property="og:image" content="https://psstatic.cdn.bcebos.com/aife/image/baidu_ai_logo_1736910930000.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chat.baidu.com">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "百度文心助手",
+      "description": "办公学习一站解决",
+      "url": "https://chat.baidu.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://chat.baidu.com/search?word={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <title>百度文心助手 - 办公学习一站解决</title>
+
+    <link rel="shortcut icon" href="https://www.baidu.com/favicon.ico" type="image/x-icon" />
+    <link rel="icon" sizes="any" mask href="https://www.baidu.com/favicon.ico">
+
+    <script>window.renderHeadStartTime = new Date().getTime();</script>
+    <script>
+        window.hitChatReachReport = Math.random() < 0.2;
+        (function () {
+            if (!window.hitChatReachReport || location.port) {
+                return;
+            }
+
+            var logUrl = 'https://sp1.baidu.com/5b1ZeDe5KgQFm2e88IuM_a/mwb2.gif'
+                + '?pid=19_103&lid=&ts=' + Date.now()
+                + '&type=count&group=chat_reach_rate'
+                + '&info=' + encodeURIComponent(JSON.stringify({page_enter: 1}))
+                + '&dim=' + encodeURIComponent(JSON.stringify({envType: 'pc'}));
+            if (!(navigator && typeof navigator.sendBeacon === 'function' && navigator.sendBeacon(logUrl))) {
+                var img = new Image();
+                img.src = logUrl;
+                img.onload = img.onerror = function () {
+                    img = null;
+                };
+            }
+        })();
+    </script>
+    <script>window.framePlatform = 'pc';</script>
+    <!--search start-->
+    
+                <link rel="preload" href="//ms.bdstatic.com/se/static/font/cosmic/wise/cos-icon_420b46d.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+            <!--placeholder:vui-replace-head-content--><script type="application/json" name="aiTabFrameBaseData">{"token":"f0636300","lid":"12121826350430250464","userInfo":{"name":"","headImg":"","isUserLogin":0,"baiduid":"","fontSizeScale":""},"tabList":[{"log":"ps","text":"网页","orig_link":"//www.baidu.com/s?wd=_QUERY_","tabImgUrl":"","tabImgPeakUrl":"","tabIcon":"https://aisearch.cdn.bcebos.com/homepage/liuhe_tab/wangye.png"},{"log":"pic","text":"图片","orig_link":"//image.baidu.com/search/index?tn=baiduimage\u0026ct=201326592\u0026lm=-1\u0026cl=2\u0026word=_QUERY_\u0026dyTabStr=MCwxMiwzLDEsMiwxMyw3LDYsNSw5","tabImgUrl":"","tabImgPeakUrl":"","tabIcon":"https://aisearch.cdn.bcebos.com/homepage/liuhe_tab/tupian.png"},{"log":"news","text":"资讯","orig_link":"//www.baidu.com/s?rtt=1\u0026bsst=1\u0026cl=2\u0026tn=news\u0026word=_QUERY_\u0026dyTabStr=MCwxMiwzLDEsMiwxMyw3LDYsNSw5","tabImgUrl":"","tabImgPeakUrl":"","tabIcon":"https://aisearch.cdn.bcebos.com/homepage/liuhe_tab/zixun.png"},{"log":"video","text":"视频","orig_link":"//www.baidu.com/sf/vsearch?pd=video\u0026tn=vsearch\u0026wd=_QUERY_\u0026dyTabStr=MCwxMiwzLDEsMiwxMyw3LDYsNSw5","tabImgUrl":"","tabImgPeakUrl":"","tabIcon":"https://aisearch.cdn.bcebos.com/homepage/liuhe_tab/shipin.png"},{"log":"note","text":"笔记","orig_link":"//www.baidu.com/s?pd=note\u0026rpf=pc\u0026word=_QUERY_\u0026dyTabStr=MCwxMiwzLDEsMiwxMyw3LDYsNSw5","tabImgUrl":"","tabImgPeakUrl":"","tabIcon":"https://aisearch.cdn.bcebos.com/homepage/liuhe_tab/biji.png"}],"chatParams":{"sse_host":"https://chat.baidu.com","sse_ws_host":"https://chat.baidu.com","sse_task_mode_host":"https://chat.baidu.com","setype":"csaitab","card_host":"https://www.baidu.com"},"hasSearchTag":false,"logParams":{"ssid":"0","from":"0","pu":"usm@0,sz@240_320,ta@___24_131.0,vmgdb@0020100228y","pn":"0","rn":"10","ref":"","applid":"12121826350430250464"},"sample":{"sids":"72089_74787_75972_76050_76062_76206_76231_76315_76334_76338_76442_76534_76513_76408_76493_76561_76452_76487_76599_76563_76576_76572_76611_76615_76619_76624_76620_76609_76606_76604_76636_76725_76731_76765_76776_76745","variable_sid":{"IMAGE_GENERATE_OPTIMIZE":"76062"},"variables":{"IMAGE_GENERATE_OPTIMIZE":"1"}},"urlInfo":{"guideWordsUrl":"https://chat.baidu.com/aichat/api/aitabserver?ctl=guidewords"},"path":"/search/11487675386957163898","usableModel":[{"modelTitle":"对话","modelName":"fast","modelButton":"对话","modelIcon":"https://gips3.baidu.com/it/u=2563391630,2929468828\u0026fm=3028\u0026app=3028\u0026f=PNG\u0026fmt=auto\u0026q=80\u0026size=f162_162","modelFunction":{"internetSearch":"","deepThink":"","quickSwitch":"","thinkMode":{"status":"","disabled":false,"disabledTip":""}},"modelShow":true,"modelList":[{"modelTitle":"自动","modelName":"smartMode","modelButton":"自动","modelIcon":"https://gips1.baidu.com/it/u=4075330363,3977242744\u0026fm=3028\u0026app=3028\u0026f=PNG\u0026fmt=auto\u0026q=100\u0026size=f48_48","modelFunction":{"internetSearch":"0","deepThink":"","deepSearch":"1","quickSwitch":"","thinkMode":{"status":"","disabled":false,"disabledTip":""}},"modelShow":true,"modelLogName":"auto","modelSwitch":true},{"modelTitle":"文心 5.1","modelName":"ERINE-5.1","modelButton":"文心5.1","modelIcon":"https://gips1.baidu.com/it/u=4293168044,3286798817\u0026fm=3028\u0026app=3028\u0026f=PNG\u0026fmt=auto\u0026q=75\u0026size=f72_72","modelFunction":{"internetSearch":"1","deepThink":"","deepSearch":"0","quickSwitch":"","thinkMode":{"status":"0","disabled":false,"disabledTip":""}},"modelLogName":"ernie","modelSwitch":true}],"modelIsNew":true,"modelSwitch":true,"modelDayAsNew":7,"experimentRevert":"AICHAT_NEW_SHORTCUTS_PC_REVERT"},{"modelTitle":"工作任务","modelName":"task","modelButton":"工作任务","modelIcon":"https://gips2.baidu.com/it/u=733956818,2497788700\u0026fm=3028\u0026app=3028\u0026f=PNG\u0026fmt=auto\u0026q=100\u0026size=f54_54","modelFunction":{"internetSearch":"","deepThink":"","quickSwitch":"","thinkMode":{"status":"","disabled":false,"disabledTip":""}},"modelHoverMessage":"任务模式暂时不支持模型选择","newMessage":"上新","modelSwitch":true,"dayAsNew":7,"experimentRevert":"AICHAT_NEW_SHORTCUTS_PC_REVERT"}],"fusionEnhanceTips":{"version":1},"defaultModel":{"modelName":"smartMode","modelFunction":{"internetSearch":"0","deepThink":"","deepSearch":"0","quickSwitch":"","thinkMode":{"status":"0","disabled":false,"disabledTip":""}}},"imgWsDegrade":false,"personifiedSwitch":"","weather":{"cityCode":"","cityName":"","iconImg":"","pollution":"","pollutionName":"","temp":"","weatherurl":"","weatherShowWarning":""},"experimentParams":{"bgWhiteSwitch":"","imageCreationSwitch":""},"skinConf":{"key":""},"knowledgeMigrateConf":{"tips":"AI云盘已与知识库融合，存文件、看解析，一处搞定！","switch":false},"switchConf":{"historyFusion":true,"picUploadDegrade":false,"taskModeDegrade":false},"settings":{"longPressExtMenus":{"enableFunctionRemoveWaterMark":true,"enableFunctionEnhanceImage":false}}}</script>
+    <!--search end-->
+  <script type="module" crossorigin src="//ms.bdstatic.com/se/chat-search/static/pc/search-DOVgEbX7.js"></script>
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/rolldown-runtime-DAXXjFlN.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/vendors-B-6jbsWk.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/@baidu/cosmic-Bp8Q6ICo.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/@baidu/marklang-coVWw9tM.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/@baidu/cosmic-dqa-B2uGWNs2.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/@baidu/cosmic-card-Caj2HV6D.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/lottie-web-OJmc850n.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/@baidu/cosmic-chat-CV2LIMGf.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/@baidu/cosmic-shop-DlsXDudQ.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/chat-util/markdown/diagram-nWz9eAsn.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/chat-huabu/components-D-DUCWq2.js">
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/common-BkMSL3KR.js">
+  <link rel="stylesheet" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/vendors-CmUAYFh5.css">
+  <link rel="stylesheet" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/cosmic-BPbWms4d.css">
+  <link rel="stylesheet" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/cosmic-dqa-DGr2utCB.css">
+  <link rel="stylesheet" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/cosmic-card-B3qZj4vN.css">
+  <link rel="stylesheet" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/cosmic-chat-CE9DGdBw.css">
+  <link rel="stylesheet" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/cosmic-shop-0Yk15uBY.css">
+  <link rel="stylesheet" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/diagram-xZ498T47.css">
+  <link rel="stylesheet" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/components-BLnwR4C1.css">
+  <link rel="stylesheet" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/common-0v2fgpVf.css">
+  <link rel="stylesheet" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/search-pc-B01RqDqN.css">
+  <!-- insert by dynamic-chunk-preload plugin start -->
+  <link rel="modulepreload" crossorigin href="//ms.bdstatic.com/se/chat-search/static/pc/marklang-rehype-highlight-CCEM-w6F.js">
+  <!-- insert by dynamic-chunk-preload plugin end -->
+</head>
+<body class="cos-chat">
+    <script>window.renderBodyStartTime = new Date().getTime();</script>
+    <!-- 对话区 -->
+    <div id="app"></div>
+    <script>window.renderBodyEndTime = new Date().getTime();</script>
+</body>
+</html>
