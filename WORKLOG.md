@@ -41,8 +41,8 @@ This is a restoration of the **"Fish in the Sky - Erica"** fan site (飞天鱼 �
 | `preview.swf` | Flash loader (loads config, pages, stylesheet, then `punkerpop.swf`) |
 | `punkerpop.swf` | Flash engine (navigation, logo, gramophone, splash) |
 | `ruffle.js` | Self-hosted Ruffle emulator (682 KB) |
-| `ruffle_web_bg.2L5HVQ52.wasm` | Ruffle WebAssembly binary (14 MB) |
-| `ruffle_web-wasm_mvp_bg.NIRL37K4.wasm` | Alternate/second WASM build — **verify which one ruffle.js loads before touching** |
+| `ruffle_web_bg.2L5HVQ52.wasm` | Ruffle WASM — full build (SIMD/bulk memory) (14 MB) |
+| `ruffle_web-wasm_mvp_bg.NIRL37K4.wasm` | Ruffle WASM — "wasm MVP" fallback for older browsers (14 MB) |
 | `xml/config.xml` | Site config: colors, footer, gramophone, music settings |
 | `xml/pages.xml` | Page definitions: 6 pages + their SWF templates / XML feeds |
 | `css/stylesheet.css` | Link/color styling |
@@ -76,7 +76,8 @@ This is a restoration of the **"Fish in the Sky - Erica"** fan site (飞天鱼 �
 2. **Music autoplay** — browsers block autoplay with sound. Music plays on first interaction for first-time visitors; autoplay works for returning visitors.
 3. **Gramophone is decorative** — the fscommand → music toggle bridge (`video.swf` + `onFSCommand`) was never made reliable and was intentionally left unwired.
 4. **Images pruned** — `images/` was trimmed to ~15 by another session. Full set is in git history (`de957bc`).
-5. **Duplicate WASM files** — two Ruffle `.wasm` files exist. Confirm which one `ruffle.js` actually uses.
+
+> **Note on WASM files:** `ruffle_web_bg.2L5HVQ52.wasm` (full build) and `ruffle_web-wasm_mvp_bg.NIRL37K4.wasm` (MVP fallback) are **both required** — `ruffle.js` auto-selects one based on browser WASM feature support. Do not delete either.
 
 ---
 
