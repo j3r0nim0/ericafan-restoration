@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<content musicswf="video.swf" musicxml="xml/videos.xml" deeplink="video" pagetitle="Fish in the Sky - Erica">
+	<page
+		des="news"
+		templateswf="news.swf"
+		xmlfeed="xml/news.xml"
+		deeplink="news"
+		pagetitle="Fish in the Sky - News"
+		menux="160"
+		menuy="-90"
+		logox="200"
+		logoy="-180"
+		logorotation="10">
+	</page>
+	<page
+		des="synopsis"
+		templateswf="about.swf"
+		xmlfeed="xml/about.xml"
+		deeplink="portfolio"
+		pagetitle="Fish in the Sky - Synopsis"
+		menux="-210"
+		menuy="-130"
+		logox="-220"
+		logoy="-200"
+		logorotation="-12">
+	</page>
+	<page
+		des="stills"
+		templateswf="pictures.swf"
+		xmlfeed="xml/pictures.xml"
+		deeplink="pictures"
+		pagetitle="Fish in the Sky - Stills"
+		menux="-210"
+		menuy="-75"
+		logox="-350"
+		logoy="-50"
+		logorotation="-90">
+	</page>
+	<page
+		des="videos"
+		templateswf="videos.swf"
+		xmlfeed="xml/videos.xml"
+		deeplink="videos"
+		pagetitle="Fish in the Sky - Videos"
+		menux="170"
+		menuy="-105"
+		logox="200"
+		logoy="-180"
+		logorotation="10">
+	</page>
+	<page
+		des="contact"
+		templateswf="contact.swf"
+		xmlfeed="xml/contact.xml"
+		deeplink="contact"
+		pagetitle="Erica - Contact"
+		menux="210"
+		menuy="-100"
+		logox="200"
+		logoy="-180"
+		logorotation="10">
+	</page>
+	<page
+		des="guestbook"
+		templateswf="guestbook.swf"
+		deeplink="guestbook"
+		pagetitle="Fish in the Sky - Guestbook"
+		menux="130"
+		menuy="-150"
+		logox="100"
+		logoy="150"
+		logorotation="10">
+	</page>
+</content>
