@@ -114,6 +114,7 @@ This is a restoration of the **"Fish in the Sky - Erica"** fan site (飞天鱼 �
 
 ## Change Log (recent, newest first)
 
+- **Loop background music** — added `SC.Widget.Events.FINISH` handler that seeks to 0 and replays the SoundCloud intro, so the background track loops continuously.
 - **Filesystem move** — moved repo from `/Users/jerry/Developer/KRAKEN MARKET MAKER/ericafan-restoration` → `/Users/jerry/Developer/ericafan-restoration` (was buried inside an unrelated crypto project). Git remote unchanged; deployment unaffected.
 - `86a365a` — **Fix gramophone root cause**: keep footer area (`showfooter=true`), empty `footertext`; removed resize/reload crutches.
 - `3ca6455` — Added pixel-resize + reload fallback (later removed as crutch).

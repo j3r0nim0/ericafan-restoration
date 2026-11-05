@@ -274,6 +274,12 @@
                 window.scPlaying = false;
             });
 
+            // Loop the background track when it finishes
+            widget.bind(SC.Widget.Events.FINISH, function () {
+                widget.seekTo(0);
+                widget.play();
+            });
+
             // Fallback: play on first user interaction if autoplay was blocked
             function playOnInteraction() {
                 if (!window.scPlaying) widget.play();
