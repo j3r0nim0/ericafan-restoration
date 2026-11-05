@@ -6,11 +6,11 @@
 		<logotohome>true</logotohome>
 		<radialbackground>true</radialbackground>
 		<menualignment>center</menualignment>
-		<showfooter>true</showfooter>
-		<showfooterbackground>true</showfooterbackground>
+		<showfooter>false</showfooter>
+		<showfooterbackground>false</showfooterbackground>
 		<showgramophone>true</showgramophone>
-		<footertext><![CDATA[Fish in the Sky - Erica <a href="http://weibo.com/u/1745379962">Sina Weibo</a>! Special thanks to <a href="http://weibo.com/138177171">3feng</a> ! Powered by Cloudflare]]></footertext>
-		<allowfullscreen>true</allowfullscreen>
+		<footertext><![CDATA[]]></footertext>
+		<allowfullscreen>false</allowfullscreen>
 		<xrandomisity>true</xrandomisity>
 		<yrandomisity>true</yrandomisity>
 		<rotationrandomisity>true</rotationrandomisity>
@@ -19,8 +19,8 @@
 		<defaultplay>true</defaultplay>
 		<defaultvolume>80</defaultvolume>
 		<firsttrack>2</firsttrack>
-		<setmusicbutton>true</setmusicbutton>
-		<volumeslider>true</volumeslider>
+		<setmusicbutton>false</setmusicbutton>
+		<volumeslider>false</volumeslider>
 	</sound>
 	<colors>
 		<mainbuttonrollover>#FFFFFF</mainbuttonrollover>

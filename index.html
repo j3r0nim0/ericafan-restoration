@@ -3,31 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fish in the Sky - Erica - Restored</title>
+    <title>Erica Fan Homepage</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; background: #360a07; overflow: hidden; font-family: sans-serif; }
         #flash-container { width: 100%; height: 100%; }
         #flash-container ruffle-player { width: 100%; height: 100%; display: block; }
+
+        /* Flat horizontal footer */
         .footer {
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-            color: #fff; font-size: 12px; text-align: center;
+            position: absolute;
+            bottom: 14px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #fff;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 50;
         }
-        .footer a { color: #ff0000; text-decoration: none; }
+        .footer a { color: #ff0000; text-decoration: none; margin: 0 4px; }
         .footer a:hover { color: #fff; }
 
-        /* Music player */
+        /* Music player header (top) */
         #music-player {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
+            top: 0;
+            left: 0;
+            right: 0;
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(54, 10, 7, 0.85);
-            border: 1px solid #851711;
-            border-radius: 24px;
-            padding: 8px 14px;
+            justify-content: center;
+            gap: 14px;
+            background: rgba(54, 10, 7, 0.92);
+            border-bottom: 1px solid #851711;
+            padding: 8px 16px;
             color: #fff;
             font-size: 13px;
             z-index: 100;
@@ -37,7 +47,7 @@
             border: none;
             color: #fff;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
             width: 28px;
             height: 28px;
             border-radius: 50%;
@@ -48,8 +58,8 @@
         }
         #music-player button:hover { background: #851711; }
         #music-player .track-title {
-            min-width: 90px;
-            max-width: 150px;
+            min-width: 120px;
+            max-width: 220px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -66,7 +76,7 @@
         }
         #music-player .play-btn {
             background: #ff0000;
-            font-size: 14px;
+            font-size: 13px;
         }
         #music-player .play-btn:hover { background: #cc0000; }
 
@@ -84,21 +94,20 @@
 <body>
     <div id="flash-container"></div>
 
+    <!-- Flat horizontal footer (original hyperlinks) -->
     <div class="footer">
-        Fish in the Sky - Erica 
-        <a href="http://weibo.com/u/1745379962">Sina Weibo</a>! 
-        <br>
+        Fish in the Sky - Erica
+        <a href="http://weibo.com/u/1745379962">Sina Weibo</a>!
         Special thanks to <a href="http://weibo.com/138177171">3Feng</a>!
-        <br>
         Powered by Cloudflare
     </div>
 
-    <!-- Music player -->
+    <!-- Music player header (top) -->
     <div id="music-player">
         <button id="prev-btn" title="Previous">⏮</button>
         <button id="play-btn" class="play-btn" title="Play/Pause">▶</button>
         <button id="next-btn" title="Next">⏭</button>
-        <span class="track-title" id="track-title">Fish In The Sky - Intro</span>
+        <span class="track-title" id="track-title">Erica Fan</span>
         <div class="volume">
             <span>🔊</span>
             <input type="range" id="volume-slider" min="0" max="100" value="80">
@@ -123,7 +132,7 @@
     <!-- Local Ruffle files -->
     <script src="/ruffle.js"></script>
 
-    <!-- Music player logic -->
+    <!-- MP3 playlist player (separate from background music) -->
     <script>
         (function () {
             var tracks = [
@@ -140,7 +149,7 @@
             ];
 
             var audio = new Audio();
-            var current = 1; // config.xml had <firsttrack>2</firsttrack> (0-indexed = 1)
+            var current = 1;
 
             var playBtn = document.getElementById('play-btn');
             var prevBtn = document.getElementById('prev-btn');
@@ -148,7 +157,7 @@
             var titleEl = document.getElementById('track-title');
             var volSlider = document.getElementById('volume-slider');
 
-            audio.volume = 0.8; // defaultvolume 80
+            audio.volume = 0.8;
 
             function loadTrack(index) {
                 current = index;
@@ -157,13 +166,16 @@
                 titleEl.textContent = (current + 1) + ". " + track.title;
             }
 
-            function togglePlay() {
-                // If SoundCloud intro is playing, pause it and play the MP3 playlist instead
+            function pauseBackground() {
                 if (window.scWidget && window.scPlaying) {
                     window.scWidget.pause();
                     window.scPlaying = false;
                 }
+            }
+
+            function toggleMp3() {
                 if (audio.paused) {
+                    pauseBackground(); // auto-mute background when player starts
                     audio.play().then(function () {
                         playBtn.textContent = '⏸';
                     }).catch(function () {
@@ -175,20 +187,19 @@
                 }
             }
 
-            // Expose toggle so the Flash bridge (onFSCommand) can call it
-            window.toggleMusic = togglePlay;
+            window.toggleMp3 = toggleMp3;
 
-            playBtn.addEventListener('click', togglePlay);
+            playBtn.addEventListener('click', toggleMp3);
             prevBtn.addEventListener('click', function () {
                 current = (current - 1 + tracks.length) % tracks.length;
                 loadTrack(current);
-                if (!audio.paused) audio.play();
+                if (!audio.paused) { pauseBackground(); audio.play(); }
                 playBtn.textContent = audio.paused ? '▶' : '⏸';
             });
             nextBtn.addEventListener('click', function () {
                 current = (current + 1) % tracks.length;
                 loadTrack(current);
-                if (!audio.paused) audio.play();
+                if (!audio.paused) { pauseBackground(); audio.play(); }
                 playBtn.textContent = audio.paused ? '▶' : '⏸';
             });
             volSlider.addEventListener('input', function () {
@@ -201,12 +212,11 @@
                 audio.play();
             });
 
-            // Start on track 2 (as per original config)
             loadTrack(current);
         })();
     </script>
 
-    <!-- SoundCloud background music (plays on entry) -->
+    <!-- SoundCloud background music (plays on entry, separate from playlist) -->
     <script src="https://w.soundcloud.com/player/api.js"></script>
     <script>
         (function () {
@@ -216,26 +226,29 @@
             window.scPlaying = false;
 
             widget.bind(SC.Widget.Events.READY, function () {
-                // Try to autoplay (browser may block with sound)
                 widget.play();
             });
 
             widget.bind(SC.Widget.Events.PLAY, function () {
                 window.scPlaying = true;
-                document.getElementById('track-title').textContent = 'Fish In The Sky - Intro';
-                document.getElementById('play-btn').textContent = '⏸';
             });
 
             widget.bind(SC.Widget.Events.PAUSE, function () {
                 window.scPlaying = false;
-                document.getElementById('play-btn').textContent = '▶';
             });
 
-            // Fallback: if autoplay was blocked, play on first user interaction
-            function playOnInteraction() {
-                if (!window.scPlaying) {
+            // Toggle background music on/off (used by gramophone)
+            window.toggleBackgroundMusic = function () {
+                if (window.scPlaying) {
+                    widget.pause();
+                } else {
                     widget.play();
                 }
+            };
+
+            // Fallback: play on first user interaction if autoplay was blocked
+            function playOnInteraction() {
+                if (!window.scPlaying) widget.play();
                 document.removeEventListener('click', playOnInteraction);
                 document.removeEventListener('keydown', playOnInteraction);
             }
@@ -244,17 +257,17 @@
         })();
     </script>
 
-    <!-- Initialize the Flash player and bridge the gramophone to the music player -->
+    <!-- Initialize the Flash player and bridge the gramophone to background music -->
     <script>
         (function () {
             var ruffle = window.RufflePlayer.newest();
             var player = ruffle.createPlayer();
             document.getElementById('flash-container').appendChild(player);
 
-            // Bridge Flash fscommand -> music player
+            // Bridge Flash fscommand -> toggle background music
             player.onFSCommand = function (command, args) {
                 if (command === 'toggleMusic') {
-                    if (window.toggleMusic) window.toggleMusic();
+                    if (window.toggleBackgroundMusic) window.toggleBackgroundMusic();
                 }
             };
 
