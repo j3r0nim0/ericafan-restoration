@@ -69,6 +69,16 @@
             font-size: 14px;
         }
         #music-player .play-btn:hover { background: #cc0000; }
+
+        /* SoundCloud background track (hidden but functional) */
+        #sc-background {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+            pointer-events: none;
+            border: 0;
+        }
     </style>
 </head>
 <body>
@@ -88,12 +98,18 @@
         <button id="prev-btn" title="Previous">⏮</button>
         <button id="play-btn" class="play-btn" title="Play/Pause">▶</button>
         <button id="next-btn" title="Next">⏭</button>
-        <span class="track-title" id="track-title">Music</span>
+        <span class="track-title" id="track-title">Fish In The Sky - Intro</span>
         <div class="volume">
             <span>🔊</span>
             <input type="range" id="volume-slider" min="0" max="100" value="80">
         </div>
     </div>
+
+    <!-- SoundCloud background track (Fish In The Sky - Introduction) -->
+    <iframe id="sc-background"
+        src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F96384039&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"
+        allow="autoplay">
+    </iframe>
 
     <!-- Configure Ruffle BEFORE loading the script -->
     <script>
@@ -107,7 +123,7 @@
     <!-- Local Ruffle files -->
     <script src="/ruffle.js"></script>
 
-    <!-- Music player logic (defined early so Flash can bridge to it) -->
+    <!-- Music player logic -->
     <script>
         (function () {
             var tracks = [
@@ -142,6 +158,11 @@
             }
 
             function togglePlay() {
+                // If SoundCloud intro is playing, pause it and play the MP3 playlist instead
+                if (window.scWidget && window.scPlaying) {
+                    window.scWidget.pause();
+                    window.scPlaying = false;
+                }
                 if (audio.paused) {
                     audio.play().then(function () {
                         playBtn.textContent = '⏸';
@@ -185,6 +206,44 @@
         })();
     </script>
 
+    <!-- SoundCloud background music (plays on entry) -->
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script>
+        (function () {
+            var iframe = document.getElementById('sc-background');
+            var widget = SC.Widget(iframe);
+            window.scWidget = widget;
+            window.scPlaying = false;
+
+            widget.bind(SC.Widget.Events.READY, function () {
+                // Try to autoplay (browser may block with sound)
+                widget.play();
+            });
+
+            widget.bind(SC.Widget.Events.PLAY, function () {
+                window.scPlaying = true;
+                document.getElementById('track-title').textContent = 'Fish In The Sky - Intro';
+                document.getElementById('play-btn').textContent = '⏸';
+            });
+
+            widget.bind(SC.Widget.Events.PAUSE, function () {
+                window.scPlaying = false;
+                document.getElementById('play-btn').textContent = '▶';
+            });
+
+            // Fallback: if autoplay was blocked, play on first user interaction
+            function playOnInteraction() {
+                if (!window.scPlaying) {
+                    widget.play();
+                }
+                document.removeEventListener('click', playOnInteraction);
+                document.removeEventListener('keydown', playOnInteraction);
+            }
+            document.addEventListener('click', playOnInteraction);
+            document.addEventListener('keydown', playOnInteraction);
+        })();
+    </script>
+
     <!-- Initialize the Flash player and bridge the gramophone to the music player -->
     <script>
         (function () {
@@ -192,7 +251,7 @@
             var player = ruffle.createPlayer();
             document.getElementById('flash-container').appendChild(player);
 
-            // Bridge Flash fscommand -> HTML5 music player
+            // Bridge Flash fscommand -> music player
             player.onFSCommand = function (command, args) {
                 if (command === 'toggleMusic') {
                     if (window.toggleMusic) window.toggleMusic();
