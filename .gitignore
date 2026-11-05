@@ -1,1 +1,8 @@
 WORKLOG.md
+.DS_Store
+*.py
+*.sh
+test.txt
+node_modules/
+.tmp/
+*.log
