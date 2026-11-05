@@ -7,21 +7,25 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; background: #360a07; overflow: hidden; font-family: sans-serif; }
-        #flashContent { width: 100%; height: 100%; position: relative; }
+        ruffle-player { width: 100%; height: 100%; display: block; }
         .footer {
             position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
             color: #fff; font-size: 12px; text-align: center;
         }
         .footer a { color: #ff0000; text-decoration: none; }
         .footer a:hover { color: #fff; }
-        #errorDisplay { display: none; color: #ff0000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        #loadingDisplay { color: #fff; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
     </style>
 </head>
 <body>
-    <div id="flashContent"></div>
-    <div id="errorDisplay">Flash player failed to load</div>
-    <div id="loadingDisplay">Loading Flash player...</div>
+    <ruffle-player
+        src="/preview.swf"
+        width="100%"
+        height="100%"
+        scale="showall"
+        wmode="window"
+        autoplay="on"
+        allow="same-origin"
+    ></ruffle-player>
     
     <div class="footer">
         Fish in the Sky - Erica 
@@ -34,62 +38,5 @@
 
     <!-- Local Ruffle files -->
     <script src="/ruffle.js"></script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('flashContent');
-            const errorDisplay = document.getElementById('errorDisplay');
-            const loadingDisplay = document.getElementById('loadingDisplay');
-            
-            try {
-                // Check if RufflePlayer is available
-                if (typeof RufflePlayer === 'undefined') {
-                    errorDisplay.textContent = 'RufflePlayer not available';
-                    errorDisplay.style.display = 'block';
-                    loadingDisplay.style.display = 'none';
-                    return;
-                }
-                
-                const ruffle = new RufflePlayer();
-                ruffle.config = {
-                    autoplay: 'on',
-                    unmuteOverlay: 'hidden',
-                    showSwfDownload: true,
-                    scale: 'showall',
-                    wmode: 'window',
-                    allow: 'same-origin'
-                };
-                
-                const player = ruffle.createPlayer({
-                    swf: '/preview.swf',
-                    width: container.clientWidth,
-                    height: container.clientHeight,
-                    autocreate: true,
-                    backgroundColor: '#360a07'
-                });
-                
-                container.appendChild(player);
-                loadingDisplay.style.display = 'none';
-                
-                player.addEventListener('load', function() {
-                    loadingDisplay.style.display = 'none';
-                    errorDisplay.style.display = 'none';
-                });
-                
-                player.addEventListener('error', function(e) {
-                    errorDisplay.textContent = 'Flash failed to load: ' + (e.error?.message || 'Unknown error');
-                    errorDisplay.style.display = 'block';
-                });
-                
-                player.load();
-                
-            } catch (err) {
-                console.error('Ruffle initialization error:', err);
-                errorDisplay.textContent = 'Ruffle failed: ' + err.message;
-                errorDisplay.style.display = 'block';
-                loadingDisplay.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>
