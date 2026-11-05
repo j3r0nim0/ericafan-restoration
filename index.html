@@ -10,7 +10,7 @@
         #flash-container { width: 100%; height: 100%; }
         #flash-container ruffle-player { width: 100%; height: 100%; display: block; }
 
-        /* Flat horizontal footer */
+        /* Footer: auto-wrap and center */
         .footer {
             position: absolute;
             bottom: 14px;
@@ -19,11 +19,13 @@
             text-align: center;
             color: #fff;
             font-size: 12px;
-            white-space: nowrap;
+            line-height: 1.5;
+            padding: 0 16px;
             z-index: 50;
         }
-        .footer a { color: #ff0000; text-decoration: none; margin: 0 4px; }
+        .footer a { color: #ff0000; text-decoration: none; }
         .footer a:hover { color: #fff; }
+        .footer .sep { margin: 0 6px; opacity: 0.5; }
 
         /* Music player header (top) */
         #music-player {
@@ -34,10 +36,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
+            gap: 10px;
             background: rgba(54, 10, 7, 0.92);
             border-bottom: 1px solid #851711;
-            padding: 8px 16px;
+            padding: 8px 12px;
             color: #fff;
             font-size: 13px;
             z-index: 100;
@@ -47,28 +49,32 @@
             border: none;
             color: #fff;
             cursor: pointer;
-            font-size: 15px;
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0;
             transition: background 0.2s;
+            flex-shrink: 0;
         }
         #music-player button:hover { background: #851711; }
+        #music-player button svg { display: block; }
         #music-player .track-title {
-            min-width: 120px;
-            max-width: 220px;
+            min-width: 80px;
+            max-width: 180px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             text-align: center;
+            flex-shrink: 1;
         }
         #music-player .volume {
             display: flex;
             align-items: center;
             gap: 4px;
+            flex-shrink: 0;
         }
         #music-player input[type="range"] {
             width: 60px;
@@ -76,7 +82,6 @@
         }
         #music-player .play-btn {
             background: #ff0000;
-            font-size: 13px;
         }
         #music-player .play-btn:hover { background: #cc0000; }
 
@@ -94,22 +99,28 @@
 <body>
     <div id="flash-container"></div>
 
-    <!-- Flat horizontal footer (original hyperlinks) -->
+    <!-- Footer: auto-wraps and centers -->
     <div class="footer">
-        Fish in the Sky - an Erica Fan production |
-        follow @ <a href="http://weibo.com/u/1745379962">Sina Weibo</a> |
-        Special thanks to <a href="http://weibo.com/138177171">3Feng</a> (Original website) |
+        Fish in the Sky - an Erica Fan production<span class="sep">|</span>
+        follow @ <a href="http://weibo.com/u/1745379962">Sina Weibo</a><span class="sep">|</span>
+        Special thanks to <a href="http://weibo.com/138177171">3Feng</a> (Original website)<span class="sep">|</span>
         Powered by Cloudflare
     </div>
 
-    <!-- Music player header (top) -->
+    <!-- Music player header (top) with SVG icons -->
     <div id="music-player">
-        <button id="prev-btn" title="Previous">⏮</button>
-        <button id="play-btn" class="play-btn" title="Play/Pause">▶</button>
-        <button id="next-btn" title="Next">⏭</button>
+        <button id="prev-btn" title="Previous" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button id="play-btn" class="play-btn" title="Play/Pause" aria-label="Play/Pause">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button id="next-btn" title="Next" aria-label="Next track">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
         <span class="track-title" id="track-title">Erica Fan</span>
-        <div class="volume">
-            <span>🔊</span>
+        <div class="volume" id="volume-control">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
             <input type="range" id="volume-slider" min="0" max="100" value="80">
         </div>
     </div>
@@ -157,7 +168,21 @@
             var titleEl = document.getElementById('track-title');
             var volSlider = document.getElementById('volume-slider');
 
+            var PLAY_ICON = '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>';
+            var PAUSE_ICON = '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+
             audio.volume = 0.8;
+
+            // iOS does not support programmatic volume (hardware-controlled only)
+            var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            if (isIOS) {
+                document.getElementById('volume-control').style.display = 'none';
+            }
+
+            function setPlayIcon(playing) {
+                playBtn.innerHTML = playing ? PAUSE_ICON : PLAY_ICON;
+            }
 
             function loadTrack(index) {
                 current = index;
@@ -177,31 +202,42 @@
                 if (audio.paused) {
                     pauseBackground(); // auto-mute background when player starts
                     audio.play().then(function () {
-                        playBtn.textContent = '⏸';
+                        setPlayIcon(true);
                     }).catch(function () {
-                        playBtn.textContent = '▶';
+                        setPlayIcon(false);
                     });
                 } else {
                     audio.pause();
-                    playBtn.textContent = '▶';
+                    setPlayIcon(false);
                 }
             }
 
-            window.toggleMp3 = toggleMp3;
-
             playBtn.addEventListener('click', toggleMp3);
+
             prevBtn.addEventListener('click', function () {
+                var wasPlaying = !audio.paused;
                 current = (current - 1 + tracks.length) % tracks.length;
                 loadTrack(current);
-                if (!audio.paused) { pauseBackground(); audio.play(); }
-                playBtn.textContent = audio.paused ? '▶' : '⏸';
+                if (wasPlaying) {
+                    pauseBackground();
+                    audio.play().then(function () { setPlayIcon(true); });
+                } else {
+                    setPlayIcon(false);
+                }
             });
+
             nextBtn.addEventListener('click', function () {
+                var wasPlaying = !audio.paused;
                 current = (current + 1) % tracks.length;
                 loadTrack(current);
-                if (!audio.paused) { pauseBackground(); audio.play(); }
-                playBtn.textContent = audio.paused ? '▶' : '⏸';
+                if (wasPlaying) {
+                    pauseBackground();
+                    audio.play().then(function () { setPlayIcon(true); });
+                } else {
+                    setPlayIcon(false);
+                }
             });
+
             volSlider.addEventListener('input', function () {
                 audio.volume = volSlider.value / 100;
             });
@@ -213,10 +249,11 @@
             });
 
             loadTrack(current);
+            setPlayIcon(false);
         })();
     </script>
 
-    <!-- SoundCloud background music (plays on entry, separate from playlist) -->
+    <!-- SoundCloud background music (plays on entry) -->
     <script src="https://w.soundcloud.com/player/api.js"></script>
     <script>
         (function () {
@@ -237,39 +274,25 @@
                 window.scPlaying = false;
             });
 
-            // Toggle background music on/off (used by gramophone)
-            window.toggleBackgroundMusic = function () {
-                if (window.scPlaying) {
-                    widget.pause();
-                } else {
-                    widget.play();
-                }
-            };
-
             // Fallback: play on first user interaction if autoplay was blocked
             function playOnInteraction() {
                 if (!window.scPlaying) widget.play();
                 document.removeEventListener('click', playOnInteraction);
                 document.removeEventListener('keydown', playOnInteraction);
+                document.removeEventListener('touchstart', playOnInteraction);
             }
             document.addEventListener('click', playOnInteraction);
             document.addEventListener('keydown', playOnInteraction);
+            document.addEventListener('touchstart', playOnInteraction);
         })();
     </script>
 
-    <!-- Initialize the Flash player and bridge the gramophone to background music -->
+    <!-- Initialize the Flash player -->
     <script>
         (function () {
             var ruffle = window.RufflePlayer.newest();
             var player = ruffle.createPlayer();
             document.getElementById('flash-container').appendChild(player);
-
-            // Bridge Flash fscommand -> toggle background music
-            player.onFSCommand = function (command, args) {
-                if (command === 'toggleMusic') {
-                    if (window.toggleBackgroundMusic) window.toggleBackgroundMusic();
-                }
-            };
 
             player.load({
                 url: '/preview.swf',
@@ -278,6 +301,17 @@
                 allowNetworking: 'all',
                 allowScriptAccess: 'sameDomain',
                 backgroundColor: '#360a07'
+            });
+
+            // Force a re-render after the Flash loads so the gramophone and
+            // splash/footer-background layers show on all devices (Ruffle can
+            // miss drawing some elements until the stage is resized).
+            [1000, 2500, 4500].forEach(function (ms) {
+                setTimeout(function () {
+                    var c = document.getElementById('flash-container');
+                    c.style.width = '99.9%';
+                    setTimeout(function () { c.style.width = '100%'; }, 60);
+                }, ms);
             });
         })();
     </script>
