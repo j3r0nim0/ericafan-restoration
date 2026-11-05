@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish in the Sky - Erica - Restored</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; background: #360a07; overflow: hidden; font-family: sans-serif; }
+        #flashContent { width: 100%; height: 100%; position: relative; }
+        .footer {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            color: #fff; font-size: 12px; text-align: center;
+        }
+        .footer a { color: #ff0000; text-decoration: none; }
+        .footer a:hover { color: #fff; }
+    </style>
+</head>
+<body>
+    <div id="flashContent"></div>
+    
+    <div class="footer">
+        Fish in the Sky - Erica 
+        <a href="http://weibo.com/u/1745379962">Sina Weibo</a>! 
+        Powered by <a href="http://weibo.com/138177171">3feng</a> !
+    </div>
+
+    <!-- Ruffle Flash Emulator -->
+    <script src="https://unpkg.com/@ruffle-rs/ruffle@0.211.0/web/ruffle.js"></script>
+    
+    <script>
+        // Initialize Ruffle
+        const ruffle = new RufflePlayer();
+        
+        // Configuration based on original config.xml
+        ruffle.config = {
+            autoplay: 'on',
+            unmuteOverlay: 'hidden',
+            showSwfDownload: true,
+            // Scale modes: exactfit, noborder, noprotect, showall
+            scale: 'showall', 
+            // Window mode for proper rendering
+            wmode: 'window'
+        };
+        
+        // Load the original preview.swf from the local ericafan-restoration folder
+        const swfUrl = 'preview.swf';
+        
+        // Wait for Ruffle to load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create the Ruffle player element
+            const container = document.getElementById('flashContent');
+            
+            // Embed Ruffle with the SWF
+            rufflePlay(ruffle, swfUrl, container);
+        });
+        
+        function rufflePlay(ruffle, url, container) {
+            // Create ruffle player
+            const player = ruffle.createPlayer({
+                swf: url,
+                width: container.clientWidth,
+                height: container.clientHeight,
+                autocreate: true
+            });
+            
+            // Append to container
+            container.appendChild(player);
+            
+            // Handle resize
+            window.addEventListener('resize', () => {
+                player.width = container.clientWidth;
+                player.height = container.clientHeight;
+                player.resize();
+            });
+            
+            // Start playback
+            player.load();
+        }
+    </script>
+</body>
+</html>

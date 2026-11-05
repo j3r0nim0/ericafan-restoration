@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<general>
+		<openingpage>1</openingpage>
+		<uniquexml>false</uniquexml>
+		<logotohome>true</logotohome>
+		<radialbackground>true</radialbackground>
+		<custombackground>bg.jpg</custombackground>
+		<backgroundimagescale>true</backgroundimagescale>
+		<menualignment>center</menualignment>
+		<showfooter>true</showfooter>
+		<showfooterbackground>true</showfooterbackground>
+		<showgramophone>true</showgramophone>
+		<footertext><![CDATA[Fish in the Sky - Erica <a href="http://weibo.com/u/1745379962">Sina Weibo</a>! Powered by <a href="http://weibo.com/138177171">3feng</a> !]]></footertext>
+		<allowfullscreen>true</allowfullscreen>
+		<xrandomisity>true</xrandomisity>
+		<yrandomisity>true</yrandomisity>
+		<rotationrandomisity>true</rotationrandomisity>
+	</general>
+	<sound>
+		<defaultplay>true</defaultplay>
+		<defaultvolume>80</defaultvolume>
+		<firsttrack>2</firsttrack>
+		<setmusicbutton>true</setmusicbutton>
+		<volumeslider>true</volumeslider>
+	</sound>
+	<colors>
+		<mainbuttonrollover>#FFFFFF</mainbuttonrollover>
+		<mainbuttonrollout>#8A1A13</mainbuttonrollout>
+		<footerrollover>#FF0000</footerrollover>
+		<footerrollout>#FFFFFF</footerrollout>
+		<contentrollover>#FFFFFF</contentrollover>
+		<contentrollout>#FF0000</contentrollout>
+		<backgroundcenter>#851711</backgroundcenter>
+		<backgroundside>#360A07</backgroundside>
+	</colors>
+</config>
