@@ -107,24 +107,7 @@
     <!-- Local Ruffle files -->
     <script src="/ruffle.js"></script>
 
-    <!-- Initialize the player via the JS API -->
-    <script>
-        (function () {
-            var ruffle = window.RufflePlayer.newest();
-            var player = ruffle.createPlayer();
-            document.getElementById('flash-container').appendChild(player);
-            player.load({
-                url: '/preview.swf',
-                scale: 'showall',
-                wmode: 'window',
-                allowNetworking: 'all',
-                allowScriptAccess: 'sameDomain',
-                backgroundColor: '#360a07'
-            });
-        })();
-    </script>
-
-    <!-- Music playlist (original soundtrack) -->
+    <!-- Music player logic (defined early so Flash can bridge to it) -->
     <script>
         (function () {
             var tracks = [
@@ -163,7 +146,6 @@
                     audio.play().then(function () {
                         playBtn.textContent = '⏸';
                     }).catch(function () {
-                        // Autoplay blocked - show play state
                         playBtn.textContent = '▶';
                     });
                 } else {
@@ -171,6 +153,9 @@
                     playBtn.textContent = '▶';
                 }
             }
+
+            // Expose toggle so the Flash bridge (onFSCommand) can call it
+            window.toggleMusic = togglePlay;
 
             playBtn.addEventListener('click', togglePlay);
             prevBtn.addEventListener('click', function () {
@@ -189,7 +174,6 @@
                 audio.volume = volSlider.value / 100;
             });
 
-            // Auto-advance to next track when one ends
             audio.addEventListener('ended', function () {
                 current = (current + 1) % tracks.length;
                 loadTrack(current);
@@ -198,6 +182,31 @@
 
             // Start on track 2 (as per original config)
             loadTrack(current);
+        })();
+    </script>
+
+    <!-- Initialize the Flash player and bridge the gramophone to the music player -->
+    <script>
+        (function () {
+            var ruffle = window.RufflePlayer.newest();
+            var player = ruffle.createPlayer();
+            document.getElementById('flash-container').appendChild(player);
+
+            // Bridge Flash fscommand -> HTML5 music player
+            player.onFSCommand = function (command, args) {
+                if (command === 'toggleMusic') {
+                    if (window.toggleMusic) window.toggleMusic();
+                }
+            };
+
+            player.load({
+                url: '/preview.swf',
+                scale: 'showall',
+                wmode: 'window',
+                allowNetworking: 'all',
+                allowScriptAccess: 'sameDomain',
+                backgroundColor: '#360a07'
+            });
         })();
     </script>
 </body>
