@@ -6,7 +6,7 @@
 		<logotohome>true</logotohome>
 		<radialbackground>true</radialbackground>
 		<menualignment>center</menualignment>
-		<showfooter>false</showfooter>
+		<showfooter>true</showfooter>
 		<showfooterbackground>true</showfooterbackground>
 		<showgramophone>true</showgramophone>
 		<footertext><![CDATA[]]></footertext>

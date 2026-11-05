@@ -302,32 +302,6 @@
                 allowScriptAccess: 'sameDomain',
                 backgroundColor: '#360a07'
             });
-
-            // Ruffle misses drawing some layers (gramophone/splash) until the
-            // stage is genuinely resized. Nudge the container by a real pixel
-            // amount (exceeds ResizeObserver threshold) to force a redraw.
-            function forceRedraw() {
-                var c = document.getElementById('flash-container');
-                var w = c.offsetWidth;
-                var h = c.offsetHeight;
-                if (!w || !h) return;
-                c.style.width = (w - 24) + 'px';
-                c.style.height = (h - 24) + 'px';
-                setTimeout(function () {
-                    c.style.width = '100%';
-                    c.style.height = '100%';
-                }, 250);
-            }
-
-            [1500, 3000, 5000, 8000].forEach(function (ms) {
-                setTimeout(forceRedraw, ms);
-            });
-
-            // Last resort: reload the player once after everything is loaded
-            // to guarantee a complete first render.
-            setTimeout(function () {
-                if (player.reload) player.reload();
-            }, 11000);
         })();
     </script>
 </body>

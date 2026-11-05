@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ericafan Restoration — Image Grid</title>
+<title>Ericafan Restoration — Remaining Images</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -25,8 +25,10 @@
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   .card {
     background: #2a2a2a;
@@ -56,9 +58,9 @@
     left: 4px;
     background: rgba(0,0,0,0.75);
     color: #fff;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: bold;
-    padding: 2px 8px;
+    padding: 3px 10px;
     border-radius: 4px;
     z-index: 2;
   }
@@ -76,7 +78,7 @@
   .badge.delete { background: #f44336; color: #fff; }
   .card img {
     width: 100%;
-    height: 160px;
+    height: 180px;
     object-fit: cover;
     display: block;
   }
@@ -118,6 +120,9 @@
     border-radius: 8px;
     padding: 16px;
     margin-top: 16px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
     font-family: monospace;
     font-size: 13px;
     line-height: 1.6;
@@ -144,8 +149,8 @@
 </style>
 </head>
 <body>
-<h1>🖼️ Ericafan Restoration — Image Grid</h1>
-<p class="stats">60 images · Click to mark Keep (green) · Shift+Click to mark Delete (red) · Click again to unmark</p>
+<h1>🖼️ Ericafan Restoration — Remaining Images</h1>
+<p class="stats">15 images · Click to mark Keep (green) · Shift+Click to mark Delete (red) · Click again to unmark</p>
 
 <div class="legend">
   <span class="legend-item"><span class="legend-swatch gray"></span> Unmarked</span>
@@ -173,26 +178,28 @@
   <button onclick="copyOutput()">📄 Copy to Clipboard</button>
 </div>
 
-<div id="output">Click images to mark them, then use the buttons above to generate lists.</div>
+<div id="output">15 images remaining. Click to mark them, then use buttons above.</div>
 
 <script>
 const IMAGES = [
-  "img001.jpg", "img002.jpg", "img003.jpg", "img004.jpg", "img005.jpg",
-  "img006.jpg", "img007.jpg", "img008.jpg", "img009.jpg", "img010.jpg",
-  "img011.jpg", "img012.jpg", "img013.jpg", "img014.jpg", "img015.jpg",
-  "img016.jpg", "img017.jpg", "img018.jpg",
-  "img020.jpg", "img021.jpg", "img022.jpg", "img023.jpg", "img024.jpg",
-  "img025.jpg", "img026.jpg", "img027.jpg", "img028.jpg", "img029.jpg",
-  "img030.jpg", "img031.jpg", "img032.jpg", "img033.jpg", "img034.jpg",
-  "img036.jpeg", "img037.jpg", "img038.jpg", "img039.jpg",
-  "img040.jpeg", "img041.jpg", "img042.jpg", "img043.jpg", "img044.jpg",
-  "img045.jpg", "img046.jpg", "img047.jpg", "img048.jpg", "img049.jpg",
-  "img050.png", "img051.jpg", "img052.jpg", "img053.jpg", "img054.jpg",
-  "img055.jpg", "img056.jpg", "img057.jpg", "img058.jpg", "img059.jpg",
-  "img060.jpg", "img061.jpg", "img062.jpg"
+  "img001.jpg",
+  "img002.jpg",
+  "img003.jpg",
+  "img004.jpg",
+  "img005.jpg",
+  "img006.jpg",
+  "img007.jpg",
+  "img008.jpg",
+  "img011.jpg",
+  "img014.jpg",
+  "img016.jpg",
+  "img018.jpg",
+  "img032.jpg",
+  "img033.jpg",
+  "img045.jpg"
 ];
 
-const state = {}; // filename -> 'keep' | 'delete' | undefined
+const state = {};
 
 function render() {
   const grid = document.getElementById('grid');
@@ -229,10 +236,8 @@ function render() {
 
     card.addEventListener('click', (e) => {
       if (e.shiftKey) {
-        // shift = delete
         state[f] = (state[f] === 'delete') ? undefined : 'delete';
       } else {
-        // normal = keep
         state[f] = (state[f] === 'keep') ? undefined : 'keep';
       }
       render();
