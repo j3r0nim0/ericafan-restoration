@@ -13,7 +13,7 @@
 This is a restoration of the **"Fish in the Sky - Erica"** fan site (飞天鱼 · 范潇匀), originally a Flash 8 / ActionScript 2 website from ~2006–2013. The original hosting is gone; the site was recovered from the Wayback Machine and is served as a static site via **Cloudflare Pages**, with Flash playback through the **Ruffle** emulator.
 
 ### Repo / Deployment
-- **Git repo:** local `/Users/jerry/Developer/KRAKEN MARKET MAKER/ericafan-restoration`
+- **Git repo:** local `/Users/jerry/Developer/ericafan-restoration`
 - **Remote:** `https://github.com/j3r0nim0/ericafan-restoration.git` (branch `main`)
 - **Hosting:** Cloudflare Pages (auto-builds on push to `main`)
 
@@ -98,7 +98,7 @@ This is a restoration of the **"Fish in the Sky - Erica"** fan site (飞天鱼 �
 
 ## Coordination Rules
 
-1. **Work in this folder only** — `/Users/jerry/Developer/KRAKEN MARKET MAKER/ericafan-restoration`.
+1. **Work in this folder only** — `/Users/jerry/Developer/ericafan-restoration`.
 2. **`git pull origin main` before starting.**
 3. **Append to this WORKLOG.md** for every change (what + why).
 4. **Commit with descriptive messages** and push:
@@ -114,6 +114,7 @@ This is a restoration of the **"Fish in the Sky - Erica"** fan site (飞天鱼 �
 
 ## Change Log (recent, newest first)
 
+- **Filesystem move** — moved repo from `/Users/jerry/Developer/KRAKEN MARKET MAKER/ericafan-restoration` → `/Users/jerry/Developer/ericafan-restoration` (was buried inside an unrelated crypto project). Git remote unchanged; deployment unaffected.
 - `86a365a` — **Fix gramophone root cause**: keep footer area (`showfooter=true`), empty `footertext`; removed resize/reload crutches.
 - `3ca6455` — Added pixel-resize + reload fallback (later removed as crutch).
 - `26a9a04` — Music player UX: SVG icons, next/prev don't pause, iOS volume hidden, footer wrap.
