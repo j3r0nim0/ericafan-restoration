@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,69 +14,86 @@
         }
         .footer a { color: #ff0000; text-decoration: none; }
         .footer a:hover { color: #fff; }
+        #errorDisplay { display: none; color: #ff0000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        #loadingDisplay { color: #fff; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
     </style>
 </head>
 <body>
     <div id="flashContent"></div>
+    <div id="errorDisplay">Flash player failed to load</div>
+    <div id="loadingDisplay">Loading Flash player...</div>
     
     <div class="footer">
         Fish in the Sky - Erica 
         <a href="http://weibo.com/u/1745379962">Sina Weibo</a>! 
-        Powered by <a href="http://weibo.com/138177171">3feng</a> !
+        <br>
+        Special thanks to <a href="http://weibo.com/138177171">3Feng</a>!
+        <br>
+        Powered by Cloudflare
     </div>
 
-    <!-- Ruffle Flash Emulator -->
-    <script src="https://unpkg.com/@ruffle-rs/ruffle@0.211.0/web/ruffle.js"></script>
+    <!-- Use latest stable Ruffle -->
+    <script src="https://unpkg.com/@ruffle-rs/ruffle@0.7.1/web/ruffle.js"></script>
     
     <script>
-        // Initialize Ruffle
-        const ruffle = new RufflePlayer();
-        
-        // Configuration based on original config.xml
-        ruffle.config = {
-            autoplay: 'on',
-            unmuteOverlay: 'hidden',
-            showSwfDownload: true,
-            // Scale modes: exactfit, noborder, noprotect, showall
-            scale: 'showall', 
-            // Window mode for proper rendering
-            wmode: 'window'
-        };
-        
-        // Load the original preview.swf from the local ericafan-restoration folder
-        const swfUrl = 'preview.swf';
-        
-        // Wait for Ruffle to load
-        document.addEventListener('DOMContentLoaded', () => {
-            // Create the Ruffle player element
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('flashContent');
+            const errorDisplay = document.getElementById('errorDisplay');
+            const loadingDisplay = document.getElementById('loadingDisplay');
             
-            // Embed Ruffle with the SWF
-            rufflePlay(ruffle, swfUrl, container);
+            try {
+                // Create Ruffle player with minimal config
+                const ruffle = new RufflePlayer();
+                
+                // Set configuration
+                ruffle.config = {
+                    autoplay: 'on',
+                    unmuteOverlay: 'hidden',
+                    showSwfDownload: true,
+                    scale: 'showall',
+                    wmode: 'window',
+                    allow: 'same-origin'
+                };
+                
+                // Create player with absolute URL
+                const player = ruffle.createPlayer({
+                    swf: 'https://ericafan-restoration.pages.dev/preview.swf',
+                    width: container.clientWidth,
+                    height: container.clientHeight,
+                    autocreate: true,
+                    backgroundColor: '#360a07'
+                });
+                
+                // Add player to container
+                container.appendChild(player);
+                
+                // Hide loading
+                loadingDisplay.style.display = 'none';
+                
+                // Add event listeners
+                player.addEventListener('load', function() {
+                    console.log('SWF loaded successfully');
+                    loadingDisplay.style.display = 'none';
+                    errorDisplay.style.display = 'none';
+                });
+                
+                player.addEventListener('error', function(e) {
+                    console.error('SWF load error:', e);
+                    errorDisplay.style.display = 'block';
+                    loadingDisplay.style.display = 'none';
+                });
+                
+                // Start loading
+                player.load();
+                
+            } catch (err) {
+                console.error('Ruffle initialization error:', err);
+                errorDisplay.textContent = 'Ruffle failed: ' + err.message;
+                errorDisplay.style.display = 'block';
+                loadingDisplay.style.display = 'none';
+            }
         });
-        
-        function rufflePlay(ruffle, url, container) {
-            // Create ruffle player
-            const player = ruffle.createPlayer({
-                swf: url,
-                width: container.clientWidth,
-                height: container.clientHeight,
-                autocreate: true
-            });
-            
-            // Append to container
-            container.appendChild(player);
-            
-            // Handle resize
-            window.addEventListener('resize', () => {
-                player.width = container.clientWidth;
-                player.height = container.clientHeight;
-                player.resize();
-            });
-            
-            // Start playback
-            player.load();
-        }
     </script>
 </body>
 </html>
