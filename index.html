@@ -32,21 +32,25 @@
         Powered by Cloudflare
     </div>
 
-    <!-- Use latest stable Ruffle -->
-    <script src="https://unpkg.com/@ruffle-rs/ruffle@0.7.1/web/ruffle.js"></script>
+    <!-- Local Ruffle files -->
+    <script src="/ruffle.js"></script>
     
     <script>
-        // Wait for DOM to be ready
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('flashContent');
             const errorDisplay = document.getElementById('errorDisplay');
             const loadingDisplay = document.getElementById('loadingDisplay');
             
             try {
-                // Create Ruffle player with minimal config
-                const ruffle = new RufflePlayer();
+                // Check if RufflePlayer is available
+                if (typeof RufflePlayer === 'undefined') {
+                    errorDisplay.textContent = 'RufflePlayer not available';
+                    errorDisplay.style.display = 'block';
+                    loadingDisplay.style.display = 'none';
+                    return;
+                }
                 
-                // Set configuration
+                const ruffle = new RufflePlayer();
                 ruffle.config = {
                     autoplay: 'on',
                     unmuteOverlay: 'hidden',
@@ -56,35 +60,27 @@
                     allow: 'same-origin'
                 };
                 
-                // Create player with absolute URL
                 const player = ruffle.createPlayer({
-                    swf: 'https://ericafan-restoration.pages.dev/preview.swf',
+                    swf: '/preview.swf',
                     width: container.clientWidth,
                     height: container.clientHeight,
                     autocreate: true,
                     backgroundColor: '#360a07'
                 });
                 
-                // Add player to container
                 container.appendChild(player);
-                
-                // Hide loading
                 loadingDisplay.style.display = 'none';
                 
-                // Add event listeners
                 player.addEventListener('load', function() {
-                    console.log('SWF loaded successfully');
                     loadingDisplay.style.display = 'none';
                     errorDisplay.style.display = 'none';
                 });
                 
                 player.addEventListener('error', function(e) {
-                    console.error('SWF load error:', e);
+                    errorDisplay.textContent = 'Flash failed to load: ' + (e.error?.message || 'Unknown error');
                     errorDisplay.style.display = 'block';
-                    loadingDisplay.style.display = 'none';
                 });
                 
-                // Start loading
                 player.load();
                 
             } catch (err) {
